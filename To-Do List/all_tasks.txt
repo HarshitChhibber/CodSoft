@@ -1,0 +1,4 @@
+Task ID | Task Name | Due Date | Status
+1       | Example Project 1    | 10/5/25    | ☐
+2       | Example Project 2    | 11/5/25    | ☑
+3       | Example Project 3    | 12/5/25    | ☐

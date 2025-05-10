@@ -12,54 +12,55 @@ def generate_task_id():
 
 def load_tasks_from_files():
     if os.path.exists("todo_list.txt"):
-        with open ("todo_list.txt", "r") as file:
-            lines = file.readline()[1:]                     # To skip the Header Line
+        with open("todo_list.txt", "r") as file:
+            lines = file.readlines()[1:]  # Skip header
             for line in lines:
                 parts = [part.strip() for part in line.strip().split('|')]
                 if len(parts) == 4:
                     task = {
-                        "Task ID": int (parts [0]),
-                        "Task Name": parts [1],
-                        "Creation Date": parts [2],
-                        "Due Date": parts [3],
-                        "Completion Date": None
+                        "Task ID": int(parts[0]),
+                        "Task Name": parts[1],
+                        "Creation Date": parts[2],
+                        "Due Date": parts[3],
+                        "Completed Date": None
                     }
                     todo_list.append(task)
+
     if os.path.exists("completed_tasks.txt"):
-        with open ("completed_tasks.txt", "r") as file:
-            lines = file.readline()[1:]
+        with open("completed_tasks.txt", "r") as file:
+            lines = file.readlines()[1:]  # Skip header
             for line in lines:
                 parts = [part.strip() for part in line.strip().split('|')]
                 if len(parts) == 5:
                     task = {
-                        "Task ID": int (parts [0]),
-                        "Task Name": parts [1],
-                        "Creation Date": parts [2],
-                        "Due Date": parts [3],
-                        "Completion Date": parts [4]
+                        "Task ID": int(parts[0]),
+                        "Task Name": parts[1],
+                        "Creation Date": parts[2],
+                        "Due Date": parts[3],
+                        "Completed Date": parts[4]
                     }
                     completed_tasks.append(task)
 
 def write_todo_file():
     with open("todo_list.txt", "w") as file:
         file.write("Task ID | Task Name | Creation Date | Due Date\n")
-        for task in sorted(todo_list, key=lambda x: x["Task ID"]):
-            file.write(f"{task['Task ID']: <7} | {task['Task Name']: <20} | {task['Creation Date']: <12} | {task['Due Date']: <10}\n")
+        for task in todo_list:
+            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Creation Date']} | {task['Due Date']}\n")
 
 def write_completed_tasks_file():
     with open("completed_tasks.txt", "w") as file:
         file.write("Task ID | Task Name | Creation Date | Due Date | Completed Date\n")
-        for task in sorted(completed_tasks, key=lambda x: x["Task ID"]):
-            file.write(f"{task['Task ID']: <7} | {task['Task Name']: <20} | {task['Creation Date']: <12} | {task['Due Date']: <10} | {task['Completed Date']: <14}\n")
+        for task in completed_tasks:
+            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Creation Date']} | {task['Due Date']} | {task['Completed Date']}\n")
 
 def write_all_tasks_file():
-    with open("all_tasks.txt", "w", encoding="utf-8") as file:                        # UTF-8 for using Special Characters
+    with open("all_tasks.txt", "w", encoding="utf-8") as file:
         file.write("Task ID | Task Name | Due Date | Status\n")
         all_tasks = todo_list + completed_tasks
         all_tasks_sorted = sorted(all_tasks, key=lambda x: x["Task ID"])
         for task in all_tasks_sorted:
             status = "☑" if task["Completed Date"] else "☐"
-            file.write(f"{task['Task ID']: <7} | {task['Task Name']: <20} | {task['Due Date']: <10} | {status}\n")
+            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Due Date']} | {status}\n")
 
 def check_due_tasks():
     today = datetime.datetime.today().date()
@@ -80,26 +81,18 @@ def check_due_tasks():
             print(f"Reminder: Task '{task['Task Name']}' is due tomorrow (Due: {task['Due Date']})")
 
 def add_task():
-    try:
-        n = int(input("How many tasks do you want to add? "))
-    except ValueError:
-        print("Invalid input.")
-        return
-
-    for _ in range(n):
-        name = input("Enter the task name: ")
-        due_date = input("Enter the due date (dd/mm/yy): ")
-        creation_date = datetime.datetime.today().strftime("%d/%m/%Y")
-        task = {
-            "Task ID": generate_task_id(),
-            "Task Name": name,
-            "Creation Date": creation_date,
-            "Due Date": due_date,
-            "Completed Date": None
-        }
-        todo_list.append(task)
-        print(f"Task '{name}' added successfully!")
-
+    name = input("Enter the task name: ")
+    due_date = input("Enter the due date (dd/mm/yy): ")
+    creation_date = datetime.datetime.today().strftime("%d/%m/%Y")
+    task = {
+        "Task ID": generate_task_id(),
+        "Task Name": name,
+        "Creation Date": creation_date,
+        "Due Date": due_date,
+        "Completed Date": None
+    }
+    todo_list.append(task)
+    print(f"Task '{name}' added successfully!")
     write_todo_file()
     write_all_tasks_file()
 
@@ -117,18 +110,18 @@ def mark_task_completed(task_id):
     print("Task ID not found.")
 
 def mark_all_completed():
-    confirm = input("Are you sure you want to mark ALL tasks as completed?\n1. Yes\n2. No\nChoose: ")
-    if confirm != '1':
-        print("Operation cancelled.")
-        return
-    for task in todo_list[:]:
-        task['Completed Date'] = datetime.datetime.today().strftime("%d/%m/%Y")
-        completed_tasks.append(task)
-        todo_list.remove(task)
-    print("All tasks marked as completed!")
-    write_todo_file()
-    write_completed_tasks_file()
-    write_all_tasks_file()
+    confirm = input("Are you sure you want to mark all tasks as completed? (1. Yes 2. No): ")
+    if confirm == '1':
+        for task in todo_list[:]:
+            task['Completed Date'] = datetime.datetime.today().strftime("%d/%m/%Y")
+            completed_tasks.append(task)
+            todo_list.remove(task)
+        print("All tasks marked as completed!")
+        write_todo_file()
+        write_completed_tasks_file()
+        write_all_tasks_file()
+    else:
+        print("Action cancelled.")
 
 def delete_task(task_id):
     for task in todo_list:

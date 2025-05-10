@@ -1,0 +1,12 @@
+# To-Do List - Task Management Application
+
+This is a To-Do List application developed using Python to manage and track tasks. The application provides essential task management features such as:
+
+- Adding new tasks with due dates
+- Viewing all tasks, including pending and completed ones
+- Marking tasks as completed
+- Deleting tasks
+- Storing tasks in text files for persistence
+- Displaying reminders for tasks that are approaching their due dates
+
+Tasks are organized and displayed based on their due dates, and completed tasks are clearly marked. This project is built with simplicity in mind and aims to help users stay on top of their tasks with ease.
