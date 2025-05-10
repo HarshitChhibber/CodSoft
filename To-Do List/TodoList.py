@@ -5,15 +5,13 @@ import os
 todo_list = []
 completed_tasks = []
 
-# Utility functions
-
 def generate_task_id():
     return len(todo_list) + len(completed_tasks) + 1
 
 def load_tasks_from_files():
     if os.path.exists("todo_list.txt"):
         with open("todo_list.txt", "r") as file:
-            lines = file.readlines()[1:]  # Skip header
+            lines = file.readlines()[1:]                                         # Skips the header line
             for line in lines:
                 parts = [part.strip() for part in line.strip().split('|')]
                 if len(parts) == 4:
@@ -28,7 +26,7 @@ def load_tasks_from_files():
 
     if os.path.exists("completed_tasks.txt"):
         with open("completed_tasks.txt", "r") as file:
-            lines = file.readlines()[1:]  # Skip header
+            lines = file.readlines()[1:]
             for line in lines:
                 parts = [part.strip() for part in line.strip().split('|')]
                 if len(parts) == 5:
@@ -54,7 +52,7 @@ def write_completed_tasks_file():
             file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Creation Date']} | {task['Due Date']} | {task['Completed Date']}\n")
 
 def write_all_tasks_file():
-    with open("all_tasks.txt", "w", encoding="utf-8") as file:
+    with open("all_tasks.txt", "w", encoding="utf-8") as file:                                 # UTF-8 allows use of special characters
         file.write("Task ID | Task Name | Due Date | Status\n")
         all_tasks = todo_list + completed_tasks
         all_tasks_sorted = sorted(all_tasks, key=lambda x: x["Task ID"])
