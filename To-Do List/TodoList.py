@@ -83,6 +83,19 @@ def check_due_tasks():
 def add_task():
     name = input("Enter the task name: ")
     due_date = input("Enter the due date (dd/mm/yy): ")
+    try:
+        if len(due_date.split('/')[-1]) == 2:
+            due_date_obj = datetime.datetime.strptime(due_date, "%d/%m/%y").date()
+        else:
+            due_date_obj = datetime.datetime.strptime(due_date, "%d/%m/%Y").date()
+    except ValueError:
+        print("Invalid date format. Please enter the date in dd/mm/yy or dd/mm/yyyy format.")
+        return
+    today = datetime.datetime.today().date()
+
+    if due_date_obj < today:
+        print("Error: The date has already passed.")
+        return
     creation_date = datetime.datetime.today().strftime("%d/%m/%Y")
     task = {
         "Task ID": generate_task_id(),
