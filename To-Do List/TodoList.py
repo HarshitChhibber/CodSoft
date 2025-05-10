@@ -41,24 +41,24 @@ def load_tasks_from_files():
 
 def write_todo_file():
     with open("todo_list.txt", "w") as file:
-        file.write("Task ID | Task Name | Creation Date | Due Date\n")
+        file.write(f"{'Task ID':<8} | {'Task Name':<30} | {'Creation Date':<15} | {'Due Date':<15}\n")
         for task in todo_list:
-            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Creation Date']} | {task['Due Date']}\n")
+            file.write(f"{task['Task ID']:<8} | {task['Task Name']:<30} | {task['Creation Date']:<15} | {task['Due Date']:<15}\n")
 
 def write_completed_tasks_file():
     with open("completed_tasks.txt", "w") as file:
-        file.write("Task ID | Task Name | Creation Date | Due Date | Completed Date\n")
+        file.write(f"{'Task ID':<8} | {'Task Name':<30} | {'Creation Date':<15} | {'Due Date':<15} | {'Completed Date':<15}\n")
         for task in completed_tasks:
-            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Creation Date']} | {task['Due Date']} | {task['Completed Date']}\n")
+            file.write(f"{task['Task ID']:<8} | {task['Task Name']:<30} | {task['Creation Date']:<15} | {task['Due Date']:<15} | {task['Completed Date']:<15}\n")
 
 def write_all_tasks_file():
-    with open("all_tasks.txt", "w", encoding="utf-8") as file:                                 # UTF-8 allows use of special characters
-        file.write("Task ID | Task Name | Due Date | Status\n")
+    with open("all_tasks.txt", "w", encoding="utf-8") as file:
+        file.write(f"{'Task ID':<8} | {'Task Name':<30} | {'Due Date':<15} | {'Status'}\n")
         all_tasks = todo_list + completed_tasks
         all_tasks_sorted = sorted(all_tasks, key=lambda x: x["Task ID"])
         for task in all_tasks_sorted:
             status = "☑" if task["Completed Date"] else "☐"
-            file.write(f"{task['Task ID']} | {task['Task Name']} | {task['Due Date']} | {status}\n")
+            file.write(f"{task['Task ID']:<8} | {task['Task Name']:<30} | {task['Due Date']:<15} | {status}\n")
 
 def check_due_tasks():
     today = datetime.datetime.today().date()
