@@ -1,2 +1,3 @@
 Task ID | Task Name | Creation Date | Due Date | Completed Date
-2       | Example Project 2    | 10/05/2025   | 11/5/25    | 10/05/2025    
+2 | Example Project 2 | 10/05/2025 | 11/5/25 | 10/05/2025
+3 | Example Project 3 | 10/05/2025 | 12/5/25 | 10/05/2025
