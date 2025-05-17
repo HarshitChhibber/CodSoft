@@ -1,31 +1,25 @@
 import random
 import string
 
-def generate_password(length, uppercase, lowercase, numbers, special):
-    selected_sets = []
-    password_chars = []
+def generate_password(length, use_upper, use_lower, use_digits, use_special):
+    char_types = {
+        "uppercase": string.ascii_uppercase if use_upper else '',
+        "lowercase": string.ascii_lowercase if use_lower else '',
+        "digits": string.digits if use_digits else '',
+        "special": string.punctuation if use_special else ''
+    }
 
-    if uppercase:
-        selected_sets.append(string.ascii_uppercase)
-        password_chars.append(random.choice(string.ascii_uppercase))
-    if lowercase:
-        selected_sets.append(string.ascii_lowercase)
-        password_chars.append(random.choice(string.ascii_lowercase))
-    if numbers:
-        selected_sets.append(string.digits)
-        password_chars.append(random.choice(string.digits))
-    if special:
-        selected_sets.append(string.punctuation)
-        password_chars.append(random.choice(string.punctuation))
+    selected_sets = [chars for chars in char_types.values() if chars]
 
     if not selected_sets:
-        return "Error: No character types selected."
+        return "Need to select at least 1 datatype."
 
-    combined_chars = ''.join(selected_sets)
+    password_chars = [random.choice(chars) for chars in selected_sets]
 
     remaining_length = length - len(password_chars)
-    password_chars.extend(random.choice(combined_chars) for _ in range(remaining_length))
+    combined_chars = ''.join(selected_sets)
 
+    password_chars += [random.choice(combined_chars) for _ in range(remaining_length)]
     random.shuffle(password_chars)
 
     return ''.join(password_chars)
