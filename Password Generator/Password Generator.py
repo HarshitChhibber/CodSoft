@@ -1,7 +1,7 @@
 import random
 import string
 
-def generate_password(length, uppercase, lowercase, digits, special):
+def generate_password(length, uppercase, lowercase, numbers, special):
     selected_sets = []
     password_chars = []
 
@@ -11,7 +11,7 @@ def generate_password(length, uppercase, lowercase, digits, special):
     if lowercase:
         selected_sets.append(string.ascii_lowercase)
         password_chars.append(random.choice(string.ascii_lowercase))
-    if digits:
+    if numbers:
         selected_sets.append(string.digits)
         password_chars.append(random.choice(string.digits))
     if special:
@@ -46,11 +46,17 @@ def main():
 
     uppercase = response("Include uppercase letters?")
     lowercase = response("Include lowercase letters?")
-    digits = response("Include digits?")
+    numbers = response("Include numbers?")
     special = response("Include special characters?")
 
-    password = generate_password(length, uppercase, lowercase, digits, special)
+    password = generate_password(length, uppercase, lowercase, numbers, special)
     print("\nGenerated Password:", password)
+
+    if response("Do you want to save this password?"):
+        website = input("Enter the Website Name/Link : ").strip()
+        with open("Saved Passwords.txt", "a") as file:
+            file.write(f"{website} - {password}\n")
+        print("Password saved successfully to 'Saved Passwords.txt'.")
 
 if __name__ == "__main__":
     main()
