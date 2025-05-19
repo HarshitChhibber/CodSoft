@@ -16,8 +16,13 @@ win_streak = 0
 while True:
     choice = random.choice(options)
 
-    user_input = input("Enter your Choice \n(Type Exit to quit)\nRock, Paper, Scissors : ")
-    user_input = user_input.title()
+    while True:
+        user_input = input("Enter your Choice \n(Type Exit to quit)\nRock, Paper, Scissors : ")
+        user_input = user_input.title()
+        if user_input == "Exit" or user_input in options:
+            break
+        else:
+            print("Enter a valid Input.")
 
     print("Your Pick :",user_input,"\n","Computer's Pick :", choice)
 
