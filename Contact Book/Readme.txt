@@ -1,10 +1,10 @@
-# 📒 Contact Book (CLI)
+# Contact Book (CLI)
 
 A simple command-line-based Contact Book built using Python. This tool allows users to manage their personal or test contacts easily through a terminal interface. It stores data in a text file, so your contacts remain saved between sessions.
 
 ---
 
-## ✅ Features
+## Features
 
 - **Add New Contacts**
 - **View All Contacts** in a clean tabular format
@@ -16,9 +16,8 @@ A simple command-line-based Contact Book built using Python. This tool allows us
 
 ---
 
-## 💻 Technologies Used
+## Technologies Used
 
 - Python 3.11
 - Standard libraries only:
   - `os`
-  - `re`
