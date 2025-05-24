@@ -2,7 +2,6 @@
 
 A simple command-line-based Contact Book built using Python. This tool allows users to manage their personal or test contacts easily through a terminal interface. It stores data in a text file, so your contacts remain saved between sessions.
 
----
 
 ## Features
 
@@ -14,7 +13,6 @@ A simple command-line-based Contact Book built using Python. This tool allows us
 - Stores contacts in a `.txt` file for persistence
 - Validates that phone numbers are exactly 10 digits
 
----
 
 ## Technologies Used
 
