@@ -52,5 +52,4 @@ def main():
             file.write(f"{website} - {password}\n")
         print("Password saved successfully to 'Saved Passwords.txt'.")
 
-if __name__ == "__main__":
-    main()
+main()
