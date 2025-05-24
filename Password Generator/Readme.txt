@@ -15,5 +15,5 @@ A simple, command-line-based Password Generator built using Python. This tool he
 
 ## Technologies Used
 
-- Python 3.11
+- Python 3.13
 - Standard libraries: `random`, `string`
